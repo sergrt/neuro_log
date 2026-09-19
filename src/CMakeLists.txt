@@ -1,27 +1,20 @@
 cmake_minimum_required(VERSION 3.10)
+include(FetchContent)
+
 project(neuro_log)
 
-set(SOURCE
-    device_connector.cpp
-    le_brainbit.cpp
-    main.cpp
-)
-
-set(HEADER
-    device_connector.h
-    le_brainbit.h
-    log.h
-)
-
+file(GLOB SOURCE *.cpp)
+file(GLOB HEADER *.h)
 
 ########
-include(FetchContent)
-FetchContent_Declare(
-    neurosdk2-cpp
-    GIT_REPOSITORY https://github.com/BrainbitLLC/neurosdk2-cpp
-    GIT_TAG        1.0.6.39
-)
-FetchContent_MakeAvailable(neurosdk2-cpp)
+if(WIN32)
+    FetchContent_Declare(
+        neurosdk2-cpp
+        GIT_REPOSITORY https://github.com/BrainbitLLC/neurosdk2-cpp
+        GIT_TAG        1.0.6.39
+    )
+    FetchContent_MakeAvailable(neurosdk2-cpp)
+endif()
 ########
 
 

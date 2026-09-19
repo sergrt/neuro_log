@@ -118,7 +118,7 @@ void DeviceConnector::SensorsCallbackBridge(SensorScanner* scanner, SensorInfo* 
 
 void DeviceConnector::SensorsCallback(SensorScanner* scanner, SensorInfo* devices, int32_t deviceCount) {
     std::string log_string = "Sensor callback called";
-    Log::Instance().Info(log_string);
+    LOG_INFO(log_string);
 
     for (int32_t i = 0; i < deviceCount; ++i) {
         std::cout << "    Address: " << devices[i].Address << "\n";

@@ -8,14 +8,14 @@
 int main() {
     using namespace neuro_trace;
 
-    Log::Instance().Info("Application start", 4);
+    LOG_INFO("Application start");
+    LOG_INFO("Searching device...");
 
-    Log::Instance().Info("Searching device...");
     DeviceConnector device_connector;
     SensorPtr sensor = device_connector.GetFirstSensor();
     LeBrainBit brain_bit(std::move(sensor));
     SensorSamplingFrequency samplingFrequency = brain_bit.ReadSamplingFrequency();
 
-    Log::Instance().Info("Sampling frequency: ", samplingFrequency);
+    LOG_INFO("Sampling frequency: ", samplingFrequency);
     return 0;
 }

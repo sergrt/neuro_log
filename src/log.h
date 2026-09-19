@@ -17,25 +17,22 @@ private:
     Log& operator=(const Log&) = delete;
     Log& operator=(Log&&) = delete;
 
-    // Хелпер 1: Если аргумент — это enum, принудительно приводим его к числу
     template<typename T>
     static auto ToPrintable(const T& val) requires std::is_enum_v<T> {
         return static_cast<std::underlying_type_t<T>>(val);
-        //return static_cast<int>(val);
     }
 
-    // Хелпер 2: Если аргумент — любой другой тип, возвращаем как есть
     template<typename T>
     static const T& ToPrintable(const T& val) requires (!std::is_enum_v<T>) {
         return val;
     }
+
 public:
     static Log& Instance() {
         static Log log{};
         return log;
     }
-    //template<typename... Args>
-    //void Info(const std::string& message, const Args&... args) {
+
     void Info(const std::string& message, const auto&... values) {
         std::cout
             << Timestamp() << " "
@@ -55,5 +52,7 @@ private:
     }
     std::mutex mutex_;
 };
+
+#define LOG_INFO(...) Log::Instance().Info(__VA_ARGS__)
 
 }  // namespace neuro_trace
